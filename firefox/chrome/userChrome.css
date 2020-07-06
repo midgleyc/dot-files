@@ -1,0 +1,25 @@
+.tabbrowser-tab[pending] {
+  color: red !important;
+  font-style: italic !important;
+  background-color: rgba(255, 255, 235, 0.5) !important;  
+}
+#tabbrowser-tabs ~ #alltabs-button {
+  visibility: visible !important;
+}
+/* based on https://old.reddit.com/comments/fwhlva//fmolndz */
+#urlbar[breakout][breakout-extend]:not([open]) {
+  top: calc((var(--urlbar-toolbar-height) - var(--urlbar-height)) / 2) !important;
+  left: 0 !important;
+  width: 100% !important;
+}
+#urlbar[breakout][breakout-extend]:not([open]) > #urlbar-input-container {
+  height: var(--urlbar-height) !important;
+  padding-block: 0px !important;
+  padding-inline: 0px !important;
+}
+#urlbar[breakout][breakout-extend][breakout-extend-animate] > #urlbar-background {
+  animation-name: none !important;
+}
+#urlbar[breakout][breakout-extend]:not([open]) > #urlbar-background {
+  box-shadow: none !important;
+}
