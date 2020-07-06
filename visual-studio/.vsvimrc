@@ -1,0 +1,39 @@
+source ~/.vimrc
+
+map £ #
+
+let mapleader = " "
+
+nnoremap <leader>n :vsc ReSharper.ReSharper_GotoFile<CR>
+nnoremap <leader>r :vsc ReSharper.ReSharper_UnitTestRunFromContext<CR>
+
+nnoremap gd :vsc ReSharper.ReSharper_GotoDeclaration<CR>
+nnoremap gi :vsc ReSharper.ReSharper_GotoImplementations<CR>
+nnoremap gu :vsc ReSharper.ReSharper_GotoUsage<CR>
+
+nnoremap K :vsc Edit.QuickInfo<CR>
+nnoremap gK :vsc Edit.PeekDefinition<CR>
+
+noremap crn :vsc Refactor.Rename<CR>
+noremap crr :vsc ReSharper.ReSharper_RefactorThis<CR>
+noremap cri :vsc ReSharper.ReSharper_InlineVariable<CR>
+
+noremap <leader>em :vsc ReSharper.ReSharper_ExtractMethod<CR>
+noremap <leader>ef :vsc ReSharper.ReSharper_IntroduceField<CR>
+noremap <leader>ep :vsc ReSharper.ReSharper_IntroduceParameter<CR>
+
+noremap <leader>l :vsc ReSharper.ReSharper_ReformatCode<CR>
+noremap <leader>L :vsc ReSharper.ReSharper_SilentCleanupCode<CR>
+
+noremap <leader><CR> :vsc ReSharper_AltEnter<CR>
+
+nnoremap [m :vsc ReSharper.ReSharper_GotoPrevMethod<CR>
+nnoremap ]m :vsc ReSharper.ReSharper_GotoNextMethod<CR>
+
+nnoremap <C-O> :vsc ReSharper.ReSharper_NavigateBackward<CR>
+nnoremap <C-I> :vsc ReSharper.ReSharper_NavigateForward<CR>
+
+nnoremap ge :vsc ReSharper.ReSharper_GotoNextErrorInSolution<CR>
+nnoremap gE :vsc ReSharper.ReSharper_GotoPrevErrorInSolution<CR>
+
+"inoremap <leader><leader> <esc>:vsc Edit.CompleteWord<CR>a

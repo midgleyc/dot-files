@@ -1,0 +1,19 @@
+# This is Git's per-user configuration file.
+[user]
+# Please adapt and uncomment the following lines:
+	name = Chris Midgley
+	email = midgleyc@gmail.com
+[merge]
+	conflictstyle = diff3
+	tool = vimdiff3
+[pull]
+	rebase = true
+[core]
+	whitespace = trailing-space,space-before-tab,cr-at-eol
+[mergetool]
+	keepBackup = false
+[push]
+	default = current
+	recurseSubmodules = check
+[rerere]
+	enabled = true

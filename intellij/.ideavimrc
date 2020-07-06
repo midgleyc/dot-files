@@ -1,0 +1,64 @@
+source ~/.vimrc
+
+map £ #
+
+let mapleader = " "
+
+nnoremap <leader>vs :source ~/.ideavimrc<CR>
+
+nmap <leader>b :action GotoDeclaration<CR>
+nmap <leader>h :action TypeHierarchy<CR>
+nmap <leader>H :action ShowUsages<CR>
+nmap <leader>i :action ImplementMethods<CR>
+nnoremap <leader>l :action ReformatCode<CR>
+vnoremap <leader>l :<BS><BS><BS><BS><BS>action VimVisualSwapSelections<CR>:action ReformatCode<CR>
+nnoremap <leader>L :action OptimizeImports<CR>
+nmap <leader>o :action MethodHierarchy.OverrideMethodAction<CR>
+nmap <leader>p :action ParameterInfo<CR>
+nmap <leader>q :action QuickJavaDoc<CR>
+nmap <leader>u :action GotoSuperMethod<CR>
+nmap <leader>[ :action EditorCodeBlockStart<CR>
+nmap <leader>] :action EditorCodeBlockEnd<CR>
+
+nnoremap gd :action GotoDeclaration<CR>
+nnoremap gi :action GotoImplementation<CR>
+nnoremap gu :action ShowUsages<CR>
+
+nnoremap crn :action RenameElement<CR>
+nnoremap cri :action Inline<CR>
+nnoremap crr :action Refactorings.QuickListPopupAction<CR>
+vnoremap crn :<BS><BS><BS><BS><BS>action VimVisualSwapSelections<CR>:action RenameElement<CR>
+vnoremap cri :<BS><BS><BS><BS><BS>action VimVisualSwapSelections<CR>:action Inline<CR>
+vnoremap crr :<BS><BS><BS><BS><BS>action VimVisualSwapSelections<CR>:action Refactorings.QuickListPopupAction<CR>
+
+noremap <leader>- :action HideSideWindows<CR>
+
+noremap <leader>n :action GotoFile<CR>
+"noremap <leader>r :action RunClass<CR>
+noremap <leader>r :action RiderUnitTestRunContextAction<CR>
+
+noremap g<leader>t :action GotoTest<CR>
+
+nnoremap <leader>ef :action IntroduceField<CR>
+nnoremap <leader>em :action ExtractMethod<CR>
+nnoremap <leader>ep :action IntroduceParameter<CR>
+vnoremap <leader>ef :<BS><BS><BS><BS><BS>action VimVisualSwapSelections<CR>:action IntroduceField<CR>
+vnoremap <leader>em :<BS><BS><BS><BS><BS>action VimVisualSwapSelections<CR>:action ExtractMethod<CR>
+vnoremap <leader>ep :<BS><BS><BS><BS><BS>action VimVisualSwapSelections<CR>:action IntroduceParameter<CR>
+
+noremap <leader><CR> :action ShowIntentionActions<CR>
+noremap <leader>B :action GotoImplementation<CR>
+
+nnoremap [m :action MethodUp<CR>
+nnoremap ]m :action MethodDown<CR>
+
+nnoremap <C-O> :action Back<CR>
+nnoremap <C-I> :action Forward<CR>
+
+nnoremap ge :action ReSharperGotoNextErrorInSolution<CR>
+nnoremap gE :action ReSharperGotoPrevErrorInSolution<CR>
+
+"inoremap <leader><leader> <Esc>:action HippieCompletion<CR>a
+"inoremap <leader>, <Esc>:action CodeCompletion<CR>a
+
+set surround
