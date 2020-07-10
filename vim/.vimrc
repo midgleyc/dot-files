@@ -1,84 +1,156 @@
-if v:lang =~ "utf8$" || v:lang =~ "UTF-8$"
-   set fileencodings=ucs-bom,utf-8,latin1
-endif
+unlet! skip_defaults_vim
+source $VIMRUNTIME/defaults.vim
 
-set nocompatible	" Use Vim defaults (much better!)
-set bs=indent,eol,start		" allow backspacing over everything in insert mode
-set autoindent	" always set autoindenting on
-"set backup		" keep a backup file
-set viminfo='20,\"50	" read/write a .viminfo file, don't store more
-			" than 50 lines of registers
-set history=50		" keep 50 lines of command line history
-set ruler		" show the cursor position all the time
-set background=dark
-set incsearch
+let mapleader = " "
+
+set background=dark "default, but conflicts with NERDTree auto-open
+set hidden " for coc
+set autowrite " save when switching buffers, but not on :q
+au WinLeave * update
 set number
 set ignorecase
 set smartcase "ignore case only when the search string is lowercase
 set laststatus=2 "bottom status line always on
 set clipboard=unnamed
 
-" Only do this part when compiled with support for autocommands
-if has("autocmd")
-  augroup redhat
-  autocmd!
-  " In text files, always limit the width of text to 78 characters
-  " autocmd BufRead *.txt set tw=78
-  " When editing a file, always jump to the last cursor position
-  autocmd BufReadPost *
-  \ if line("'\"") > 0 && line ("'\"") <= line("$") |
-  \   exe "normal! g'\"" |
-  \ endif
-  " don't write swapfile on most commonly used directories for NFS mounts or USB sticks
-  autocmd BufNewFile,BufReadPre /media/*,/run/media/*,/mnt/* set directory=~/tmp,/var/tmp,/tmp
-  " start with spec file template
-  autocmd BufNewFile *.spec 0r /usr/share/vim/vimfiles/template.spec
-  augroup END
-endif
+inoremap jk <Esc>
+"don't blam clipboard
+vnoremap p pgvy 
+nnoremap <leader>w <C-w>
 
-if has("cscope") && filereadable("/usr/bin/cscope")
-   set csprg=/usr/bin/cscope
-   set csto=0
-   set cst
-   set nocsverb
-   " add any database in current directory
-   if filereadable("cscope.out")
-      cs add $PWD/cscope.out
-   " else add database pointed to by environment
-   elseif $CSCOPE_DB != ""
-      cs add $CSCOPE_DB
-   endif
-   set csverb
-endif
-
-" Switch syntax highlighting on, when the terminal has colors
-" Also switch on highlighting the last used search pattern.
-if &t_Co > 2 || has("gui_running")
-  syntax on
-  set hlsearch
-endif
-
-filetype plugin on
-filetype indent on
-
-if &term=="xterm"
-     set t_Co=8
-     set t_Sb=[4%dm
-     set t_Sf=[3%dm
-endif
-
-" Don't wake up system with blinking cursor:
-" http://www.linuxpowertop.org/known.php
-let &guicursor = &guicursor . ",a:blinkon0"
-
-set showcmd
+" these are language-specific, but...
 set tabstop=4
 set shiftwidth=4
-inoremap jk <Esc>
+set expandtab
 
-"execute pathogen#infect()
-"execute pathogen#helptags()
+" !gsettings set org.gnome.Terminal.Legacy.Profile:/org/gnome/terminal/legacy/profiles:/:$(gsettings get org.gnome.Terminal.ProfilesList default|tr -d \')/ cursor-blink-mode off
 
-let g:syntastic_python_python_exec = '/usr/bin/python3'
-" Don't compile java files on save.
-let g:loaded_syntastic_java_javac_checker = 1
+if empty(glob('~/.vim/autoload/plug.vim'))
+  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
+
+call plug#begin('~/.vim/bundle')
+Plug 'junegunn/vim-plug' " plug itself
+
+Plug 'preservim/nerdtree' " filetree
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim' " fuzzy finder
+
+Plug 'tpope/vim-fugitive' " git
+
+Plug 'tpope/vim-surround' " surround elt with quotes / brackets / tags
+Plug 'tpope/vim-repeat' " Allow repeating ds', csaw', etc.
+
+Plug 'justinmk/vim-sneak' " two-char jump, multiline ft
+
+Plug 'pangloss/vim-javascript' " javascript syntax highlight
+
+Plug 'neoclide/coc.nvim', {'branch': 'release'} " langserver
+call plug#end()
+
+" NERDTree
+let NERDTreeQuitOnOpen=1
+let NERDTreeShowHidden=1
+
+nnoremap <leader>n :NERDTreeFind<CR>
+nnoremap <leader>v :NERDTreeToggleVCS<CR>:NERDTreeFind<CR>
+
+" FZF
+nmap <leader>f :Rg 
+nmap <leader>j :FZF<CR>
+nmap <leader>k :History<CR>
+
+" Sneak
+nmap <leader>s <Plug>Sneak_s
+nmap <leader>S <Plug>Sneak_S
+map f <Plug>Sneak_f
+map F <Plug>Sneak_F
+map t <Plug>Sneak_t
+map T <Plug>Sneak_T
+
+" Coc
+inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+" select top option on c-space
+inoremap <silent><expr> <NUL> pumvisible() ? coc#_select_confirm() : ""
+
+" Having longer updatetime (default is 4000 ms = 4 s) leads to noticeable
+" delays and poor user experience.
+set updatetime=300
+
+" Don't pass messages to |ins-completion-menu|.
+set shortmess+=c
+
+" Always show the signcolumn, otherwise it would shift the text each time
+" diagnostics appear/become resolved.
+if has("patch-8.1.1564")
+  " Recently vim can merge signcolumn and number column into one
+  set signcolumn=number
+else
+  set signcolumn=yes
+endif
+
+" Use `[g` and `]g` to navigate diagnostics
+" Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
+nmap <silent> [g <Plug>(coc-diagnostic-prev)
+nmap <silent> ]g <Plug>(coc-diagnostic-next)
+
+" GoTo code navigation.
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+
+" Use K to show documentation in preview window.
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  else
+    call CocAction('doHover')
+  endif
+endfunction
+
+" Symbol renaming.
+nmap <leader>rn <Plug>(coc-rename)
+nmap <leader>rr <Plug>(coc-refactor)
+
+" Formatting selected code.
+xmap <leader>f  <Plug>(coc-format-selected)
+
+augroup mygroup
+  autocmd!
+  " Setup formatexpr specified filetype(s).
+  autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
+  " Update signature help on jump placeholder.
+  autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
+augroup end
+
+" Remap keys for applying codeAction to the current buffer.
+nmap <leader>ac  <Plug>(coc-codeaction)
+" Apply AutoFix to problem on the current line.
+nmap <leader>qf  <Plug>(coc-fix-current)
+
+" Map function and class text objects (Allow using if = inside function & ic = inside class )
+" NOTE: Requires 'textDocument.documentSymbol' support from the language server.
+xmap if <Plug>(coc-funcobj-i)
+omap if <Plug>(coc-funcobj-i)
+xmap af <Plug>(coc-funcobj-a)
+omap af <Plug>(coc-funcobj-a)
+xmap ic <Plug>(coc-classobj-i)
+omap ic <Plug>(coc-classobj-i)
+xmap ac <Plug>(coc-classobj-a)
+omap ac <Plug>(coc-classobj-a)
+
+" Add `:Format` command to format current buffer.
+command! -nargs=0 Format :call CocAction('format')
+
+" Add `:OR` command for organize imports of the current buffer.
+command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organizeImport')
+
+" Theme (setting termguicolors has coc's highlight as magenta)
+"if (has("termguicolors"))
+" set termguicolors
+"endif
