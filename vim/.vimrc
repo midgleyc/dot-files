@@ -22,6 +22,7 @@ nnoremap <leader>w <C-w>
 set tabstop=4
 set shiftwidth=4
 set expandtab
+nmap <leader>t :!clear; npx mocha %<CR>
 
 " !gsettings set org.gnome.Terminal.Legacy.Profile:/org/gnome/terminal/legacy/profiles:/:$(gsettings get org.gnome.Terminal.ProfilesList default|tr -d \')/ cursor-blink-mode off
 
@@ -58,8 +59,10 @@ nnoremap <leader>v :NERDTreeToggleVCS<CR>:NERDTreeFind<CR>
 
 " FZF
 nmap <leader>f :Rg 
+xmap <leader>f "9y :Rg 9
 nmap <leader>j :FZF<CR>
 nmap <leader>k :History<CR>
+nmap <leader>b :Buffers<CR>
 
 " Sneak
 nmap <leader>s <Plug>Sneak_s
@@ -118,7 +121,7 @@ nmap <leader>rn <Plug>(coc-rename)
 nmap <leader>rr <Plug>(coc-refactor)
 
 " Formatting selected code.
-xmap <leader>f  <Plug>(coc-format-selected)
+xmap <leader>l  <Plug>(coc-format-selected)
 
 augroup mygroup
   autocmd!
@@ -151,6 +154,7 @@ command! -nargs=0 Format :call CocAction('format')
 command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organizeImport')
 
 " Theme (setting termguicolors has coc's highlight as magenta)
-"if (has("termguicolors"))
-" set termguicolors
-"endif
+if (has("termguicolors"))
+ set termguicolors
+ highlight Pmenu guibg=DarkMagenta
+endif
