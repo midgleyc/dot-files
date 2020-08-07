@@ -9,6 +9,7 @@ set autowrite " save when switching buffers, but not on :q
 au WinLeave * update
 set number
 set ignorecase
+set hlsearch
 set smartcase "ignore case only when the search string is lowercase
 set laststatus=2 "bottom status line always on
 set clipboard=unnamed
@@ -18,10 +19,20 @@ inoremap jk <Esc>
 vnoremap p pgvy 
 nnoremap <leader>w <C-w>
 
+" When using `dd` in the quickfix list, remove the item from the quickfix list.
+function! RemoveQFItem()
+  let curqfidx = line('.') - 1
+  let qfall = getqflist()
+  call remove(qfall, curqfidx)
+  call setqflist(qfall, 'r')
+  execute curqfidx + 1 . "cfirst"
+  :copen
+endfunction
+:command! RemoveQFItem :call RemoveQFItem()
+" Use map <buffer> to only map dd in the quickfix window. Requires +localmap
+autocmd FileType qf map <buffer> dd :RemoveQFItem<cr>
+
 " these are language-specific, but...
-set tabstop=4
-set shiftwidth=4
-set expandtab
 nmap <leader>t :!clear; npx mocha %<CR>
 
 " !gsettings set org.gnome.Terminal.Legacy.Profile:/org/gnome/terminal/legacy/profiles:/:$(gsettings get org.gnome.Terminal.ProfilesList default|tr -d \')/ cursor-blink-mode off
@@ -42,8 +53,11 @@ Plug 'tpope/vim-fugitive' " git
 
 Plug 'tpope/vim-surround' " surround elt with quotes / brackets / tags
 Plug 'tpope/vim-repeat' " Allow repeating ds', csaw', etc.
+Plug 'tpope/vim-unimpaired' " ]q, ] , ]e and others
 
 Plug 'justinmk/vim-sneak' " two-char jump, multiline ft
+
+Plug 'editorconfig/editorconfig-vim' " use editconfig settings if present
 
 Plug 'pangloss/vim-javascript' " javascript syntax highlight
 
@@ -71,6 +85,10 @@ map f <Plug>Sneak_f
 map F <Plug>Sneak_F
 map t <Plug>Sneak_t
 map T <Plug>Sneak_T
+
+" EditorConfig / Fugitive
+
+let g:EditorConfig_exclude_patterns = ['fugitive://.*']
 
 " Coc
 inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
