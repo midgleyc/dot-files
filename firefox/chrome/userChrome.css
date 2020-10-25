@@ -23,3 +23,11 @@
 #urlbar[breakout][breakout-extend]:not([open]) > #urlbar-background {
   box-shadow: none !important;
 }
+
+.notificationbox-stack {
+  box-shadow: none !important;
+}
+
+notification {
+  height: inherit !important;
+}
