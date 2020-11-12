@@ -6,7 +6,8 @@ let mapleader = " "
 set background=dark "default, but conflicts with NERDTree auto-open
 set hidden " for coc
 set autowrite " save when switching buffers, but not on :q
-au WinLeave * update
+au WinLeave * if &buftype ==# '' || &buftype == 'acwrite' | update | endif
+
 set number
 set ignorecase
 set hlsearch
@@ -18,6 +19,7 @@ inoremap jk <Esc>
 "don't blam clipboard
 vnoremap p pgvy 
 nnoremap <leader>w <C-w>
+tnoremap <leader>w <C-w>
 
 " When using `dd` in the quickfix list, remove the item from the quickfix list.
 function! RemoveQFItem()
