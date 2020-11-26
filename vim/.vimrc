@@ -34,8 +34,9 @@ endfunction
 " Use map <buffer> to only map dd in the quickfix window. Requires +localmap
 autocmd FileType qf map <buffer> dd :RemoveQFItem<cr>
 
-" these are language-specific, but...
-nmap <leader>t :!clear; npx mocha %<CR>
+" language-specific test running
+autocmd Filetype javascript nmap <leader>t :!clear; npx mocha %<CR>
+autocmd Filetype typescript nmap <leader>t :!clear; npx mocha -r ts-node/register %<CR>
 
 " !gsettings set org.gnome.Terminal.Legacy.Profile:/org/gnome/terminal/legacy/profiles:/:$(gsettings get org.gnome.Terminal.ProfilesList default|tr -d \')/ cursor-blink-mode off
 
