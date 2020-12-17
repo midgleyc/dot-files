@@ -63,6 +63,7 @@ Plug 'justinmk/vim-sneak' " two-char jump, multiline ft
 Plug 'editorconfig/editorconfig-vim' " use editconfig settings if present
 
 Plug 'pangloss/vim-javascript' " javascript syntax highlight
+Plug 'HerringtonDarkholme/yats.vim' "typescript syntax highlight
 
 Plug 'neoclide/coc.nvim', {'branch': 'release'} " langserver
 call plug#end()
