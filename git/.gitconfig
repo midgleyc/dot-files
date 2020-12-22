@@ -17,3 +17,10 @@
 	recurseSubmodules = check
 [rerere]
 	enabled = true
+[interactive]
+	diffFilter = diff-highlight
+[pager]
+	# https://stackoverflow.com/a/54240819/2591803
+	diff = diff-highlight | less
+	log = diff-highlight | less
+	show = diff-highlight | less
