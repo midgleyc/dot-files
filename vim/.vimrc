@@ -95,6 +95,9 @@ map T <Plug>Sneak_T
 let g:EditorConfig_exclude_patterns = ['fugitive://.*']
 
 " Coc
+
+let g:coc_global_extensions = ['coc-json', 'coc-html', 'coc-css', 'coc-tsserver']
+
 inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 " select top option on c-space
