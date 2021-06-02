@@ -1,6 +1,10 @@
 .tabbrowser-tab[pending] {
+  background-color: rgba(221, 221, 221, 0.5) !important;
   color: red !important;
   font-style: italic !important;
+}
+.tabbrowser-tab {
+  background-color: rgba(221, 221, 221, 1) !important;
 }
 #tabbrowser-tabs ~ #alltabs-button {
   visibility: visible !important;
@@ -31,9 +35,39 @@ notification {
   height: inherit !important;
 }
 
-/* based on https://github.com/black7375/Firefox-UI-Fix/blob/master/userChrome.css */
-@media (-moz-proton) {
-  .tabbrowser-tab:not([last-visible-tab]) {
-     border-right: 1px dotted black !important;
-  }
+
+
+/**** based on https://www.userchrome.org/firefox-89-styling-proton-ui.html#tabstyler ****/
+/* Adjust tab corner shape, optionally remove space below tabs */
+
+#tabbrowser-tabs {
+    --user-tab-rounding: 0px;
 }
+@media (-moz-proton) {
+    .tab-background {
+        border-radius: var(--user-tab-rounding) var(--user-tab-rounding) 0px 0px !important;
+        margin-block: 1px 0 !important;
+    }
+}
+
+/* Inactive tabs: Separator line style */
+
+@media (-moz-proton) {
+    .tab-background:not([selected=true]):not([multiselected=true]):not([beforeselected-visible="true"]) {
+        border-right: 1px solid rgba(0, 0, 0, .20) !important;
+    }
+    /* For dark backgrounds */
+    [brighttext="true"] .tab-background:not([selected=true]):not([multiselected=true]):not([beforeselected-visible="true"]) {
+        border-right: 1px solid var(--lwt-selected-tab-background-color, rgba(255, 255, 255, .20)) !important;
+    }
+    .tab-background:not([selected=true]):not([multiselected=true]) {
+        border-radius: 0 !important;
+    }
+    /* Remove padding between tabs */
+    .tabbrowser-tab {
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+    }
+}
+
+/**** end based on https://www.userchrome.org/firefox-89-styling-proton-ui.html#tabstyler ****/
