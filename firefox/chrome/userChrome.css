@@ -27,16 +27,6 @@
   box-shadow: none !important;
 }
 
-.notificationbox-stack {
-  box-shadow: none !important;
-}
-
-notification {
-  height: inherit !important;
-}
-
-
-
 /**** based on https://www.userchrome.org/firefox-89-styling-proton-ui.html#tabstyler ****/
 /* Adjust tab corner shape, optionally remove space below tabs */
 
@@ -46,7 +36,7 @@ notification {
 @media (-moz-proton) {
     .tab-background {
         border-radius: var(--user-tab-rounding) var(--user-tab-rounding) 0px 0px !important;
-        margin-block: 1px 0 !important;
+        margin-block-end: 0 !important;
     }
 }
 
