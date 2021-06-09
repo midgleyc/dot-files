@@ -137,3 +137,6 @@ bind "set menu-complete-display-prefix on"
 
 bind '"\e[A":history-search-backward'
 bind '"\e[B":history-search-forward'
+
+# Set FZF to ignore node_modules, .git files
+export FZF_DEFAULT_COMMAND='rg --files --follow --no-ignore-vcs --hidden -g "!{node_modules/*,.git/*}"'
