@@ -140,3 +140,9 @@ bind '"\e[B":history-search-forward'
 
 # Set FZF to ignore node_modules, .git files
 export FZF_DEFAULT_COMMAND='rg --files --follow --no-ignore-vcs --hidden -g "!{node_modules/*,.git/*}"'
+
+# Enable fzf Ctrl-R binding
+
+if [ -f /usr/share/doc/fzf/examples/key-bindings.bash ]; then
+  . /usr/share/doc/fzf/examples/key-bindings.bash
+fi
