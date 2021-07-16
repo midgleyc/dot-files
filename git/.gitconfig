@@ -26,3 +26,5 @@
 	show = diff-highlight | less
 [fetch]
 	prune = true
+[init]
+	defaultBranch = main
