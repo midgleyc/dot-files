@@ -14,6 +14,7 @@ set hlsearch
 set smartcase "ignore case only when the search string is lowercase
 set laststatus=2 "bottom status line always on
 set clipboard=unnamed
+set wildmode=longest,list
 
 inoremap jk <Esc>
 "don't blam clipboard
@@ -64,6 +65,8 @@ Plug 'editorconfig/editorconfig-vim' " use editconfig settings if present
 
 Plug 'pangloss/vim-javascript' " javascript syntax highlight
 Plug 'HerringtonDarkholme/yats.vim' "typescript syntax highlight
+
+Plug 'midgleyc/onedark.vim', {'branch': 'main'} " theme
 
 Plug 'neoclide/coc.nvim', {'branch': 'release'} " langserver
 call plug#end()
@@ -180,8 +183,21 @@ command! -nargs=0 Format :call CocAction('format')
 " Add `:OR` command for organize imports of the current buffer.
 command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organizeImport')
 
-" Theme (setting termguicolors has coc's highlight as magenta)
+" Disable mouse support (unless compiled with clipboard support)
+if (!has("clipboard"))
+ set mouse=
+endif
+
+" make some greys a little lighter
+let g:onedark_color_overrides = {
+\ "special_grey": {"gui": "#646c7a", "cterm": "238", "cterm16": "7"},
+\ "gutter_fg_grey": {"gui": "#606a7f", "cterm": "238", "cterm16": "8"}
+\}
+" italics work for this terminal
+let g:onedark_terminal_italics = 1
+colorscheme onedark
+
+" Theme
 if (has("termguicolors"))
  set termguicolors
- highlight Pmenu guibg=DarkMagenta
 endif
