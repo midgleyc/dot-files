@@ -16,6 +16,23 @@ set laststatus=2 "bottom status line always on
 set clipboard=unnamed
 set wildmode=longest,list
 
+"don't generate .swap
+set noswapfile
+
+set backup
+if !isdirectory($HOME."/.vim/backup")
+  silent! execute "!mkdir ~/.vim/backup"
+endif
+set backupdir=~/.vim/backup
+
+if has('persistent_undo')
+  if !isdirectory($HOME."/.vim/undo")
+    silent! execute "!mkdir ~/.vim/undo"
+  endif
+  set undodir=~/.vim/undo
+  set undofile
+endif
+
 inoremap jk <Esc>
 "don't blam clipboard
 vnoremap p pgvy 
@@ -66,7 +83,7 @@ Plug 'editorconfig/editorconfig-vim' " use editconfig settings if present
 Plug 'pangloss/vim-javascript' " javascript syntax highlight
 Plug 'HerringtonDarkholme/yats.vim' "typescript syntax highlight
 
-Plug 'midgleyc/onedark.vim', {'branch': 'main'} " theme
+Plug 'joshdick/onedark.vim', {'branch': 'main'} " theme
 
 Plug 'neoclide/coc.nvim', {'branch': 'release'} " langserver
 call plug#end()
