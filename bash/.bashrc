@@ -146,3 +146,12 @@ export FZF_DEFAULT_COMMAND='rg --files --follow --no-ignore-vcs --hidden -g "!{n
 if [ -f /usr/share/doc/fzf/examples/key-bindings.bash ]; then
   . /usr/share/doc/fzf/examples/key-bindings.bash
 fi
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+#initialize Z (https://github.com/rupa/z) 
+if [ -f ~/z.sh ]; then
+  . ~/z.sh 
+fi
