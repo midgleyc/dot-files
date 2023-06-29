@@ -28,3 +28,5 @@
 	prune = true
 [init]
 	defaultBranch = main
+[diff "zip"]
+	textconv = unzip -c -a
