@@ -78,7 +78,7 @@ Plug 'tpope/vim-unimpaired' " ]q, ] , ]e and others
 
 Plug 'justinmk/vim-sneak' " two-char jump, multiline ft
 
-Plug 'editorconfig/editorconfig-vim' " use editconfig settings if present
+Plug 'editorconfig/editorconfig-vim', { 'commit': '7f4e4df', 'frozen': 1 } " use editconfig settings if present
 
 Plug 'pangloss/vim-javascript' " javascript syntax highlight
 Plug 'HerringtonDarkholme/yats.vim' "typescript syntax highlight
@@ -179,7 +179,7 @@ augroup mygroup
 augroup end
 
 " Remap keys for applying codeAction to the current buffer.
-nmap <leader>ac  <Plug>(coc-codeaction)
+nmap <leader>ac  <Plug>(coc-codeaction-cursor)
 " Apply AutoFix to problem on the current line.
 nmap <leader>qf  <Plug>(coc-fix-current)
 
