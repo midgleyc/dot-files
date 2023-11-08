@@ -4,8 +4,23 @@ if !has('nvim')
   set display=lastline
 else
   unmap Y
+  set mouse=nv " allow copying to + register from normal mode
+               " but allow pasting using right-click from outside WSL without clipboard-wsl
   set listchars+=eol:$
   set scrolloff=5
+  augroup vimStartup
+    au!
+
+    " When editing a file, always jump to the last known cursor position.
+    " Don't do it when the position is invalid, when inside an event handler
+    " (happens when dropping a file on gvim) and for a commit message (it's
+    " likely a different one than last time).
+    autocmd BufReadPost *
+      \ if line("'\"") >= 1 && line("'\"") <= line("$") && &ft !~# 'commit'
+      \ |   exe "normal! g`\""
+      \ | endif
+
+  augroup END
 endif
 
 let mapleader = " "
@@ -20,7 +35,7 @@ set ignorecase
 set hlsearch
 set smartcase "ignore case only when the search string is lowercase
 set laststatus=2 "bottom status line always on
-set clipboard=unnamed
+set clipboard=unnamed,unnamedplus
 set wildmode=longest,list
 
 "don't generate .swap
@@ -216,7 +231,7 @@ command! -nargs=0 Format :call CocAction('format')
 command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organizeImport')
 
 " Disable mouse support (unless compiled with clipboard support)
-if (!has("clipboard"))
+if !has("clipboard")
  set mouse=
 endif
 
