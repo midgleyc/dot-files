@@ -1,5 +1,10 @@
-unlet! skip_defaults_vim
-source $VIMRUNTIME/defaults.vim
+if !has('nvim')
+  unlet! skip_defaults_vim
+  source $VIMRUNTIME/defaults.vim
+else
+  unmap Y
+  set listchars+=eol:$
+endif
 
 let mapleader = " "
 
@@ -20,16 +25,24 @@ set wildmode=longest,list
 set noswapfile
 
 set backup
-if !isdirectory($HOME."/.vim/backup")
-  silent! execute "!mkdir ~/.vim/backup"
+if has('nvim')
+  set backupdir=~/.config/nvim/backup
+else
+  set backupdir=~/.vim/backup
 endif
-set backupdir=~/.vim/backup
+if !isdirectory(&backupdir)
+  call mkdir(&backupdir, 'p', 0700)
+endif
 
 if has('persistent_undo')
-  if !isdirectory($HOME."/.vim/undo")
-    silent! execute "!mkdir ~/.vim/undo"
+  if has('nvim')
+    set undodir=~/.config/nvim/undo
+  else
+    set undodir=~/.vim/undo
   endif
-  set undodir=~/.vim/undo
+  if !isdirectory(&undodir)
+    call mkdir(&undodir, 'p', 0700)
+  endif
   set undofile
 endif
 
