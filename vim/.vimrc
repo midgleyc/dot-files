@@ -1,9 +1,11 @@
 if !has('nvim')
   unlet! skip_defaults_vim
   source $VIMRUNTIME/defaults.vim
+  set display=lastline
 else
   unmap Y
   set listchars+=eol:$
+  set scrolloff=5
 endif
 
 let mapleader = " "
