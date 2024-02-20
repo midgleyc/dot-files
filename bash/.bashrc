@@ -155,3 +155,9 @@ export NVM_DIR="$HOME/.nvm"
 if [ -f ~/z.sh ]; then
   . ~/z.sh 
 fi
+
+[ -s "$HOME/.asdf/asdf.sh" ] && \. "$HOME/.asdf/asdf.sh"
+
+if [ -f /usr/bin/nvim ]; then
+  alias vi=/usr/bin/nvim
+fi
