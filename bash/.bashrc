@@ -136,7 +136,9 @@ bind "set menu-complete-display-prefix on"
 # Cycle through history based on characters already typed on the line
 
 bind '"\e[A":history-search-backward'
+bind '"\eOA":history-search-backward'
 bind '"\e[B":history-search-forward'
+bind '"\eOB":history-search-forward'
 
 # Set FZF to ignore node_modules, .git files
 export FZF_DEFAULT_COMMAND='rg --files --follow --no-ignore-vcs --hidden -g "!{node_modules/*,.git/*}"'
