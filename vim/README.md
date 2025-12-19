@@ -1,3 +1,3 @@
 .vimrc -> ~/.vimrc
-init.vim -> ~/.config/nvim/init.vim
+init.lua -> ~/.config/nvim/init.lua
 coc-settings.json -> ~/.vim/coc-settings.json and ~/.config/nvim/coc-settings.json
