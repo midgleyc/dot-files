@@ -132,6 +132,11 @@ nmap <leader>j :FZF<CR>
 nmap <leader>k :History<CR>
 nmap <leader>b :Buffers<CR>
 
+" Search in hidden folders
+" https://github.com/junegunn/fzf.vim/blob/master/plugin/fzf.vim#L63
+command! -bang -nargs=* Rg
+  \ call fzf#vim#grep("rg --hidden --column --line-number --no-heading --color=always --smart-case -- ".fzf#shellescape(<q-args>), fzf#vim#with_preview(), <bang>0)
+
 " Sneak
 nmap <leader>s <Plug>Sneak_s
 nmap <leader>S <Plug>Sneak_S
