@@ -21,6 +21,7 @@ else
       \ | endif
 
   augroup END
+  " tnoremap <Esc> <C-\><C-n>
 endif
 
 let mapleader = " "
@@ -66,6 +67,8 @@ endif
 inoremap jk <Esc>
 "don't blam clipboard
 vnoremap p pgvy 
+" visual selection
+vnoremap <leader>s :s/\%V\%V/<Left><Left><Left><Left>
 nnoremap <leader>w <C-w>
 tnoremap <leader>w <C-w>
 
@@ -108,7 +111,7 @@ Plug 'tpope/vim-unimpaired' " ]q, ] , ]e and others
 
 Plug 'justinmk/vim-sneak' " two-char jump, multiline ft
 
-Plug 'editorconfig/editorconfig-vim', { 'commit': '7f4e4df', 'frozen': 1 } " use editconfig settings if present
+Plug 'editorconfig/editorconfig-vim' " use editconfig settings if present
 
 Plug 'pangloss/vim-javascript' " javascript syntax highlight
 Plug 'HerringtonDarkholme/yats.vim' "typescript syntax highlight
@@ -128,14 +131,15 @@ nnoremap <leader>v :NERDTreeToggleVCS<CR>:NERDTreeFind<CR>
 " FZF
 nmap <leader>f :Rg 
 xmap <leader>f "9y :Rg 9
-nmap <leader>j :FZF<CR>
+nmap <leader>j :Files<CR>
 nmap <leader>k :History<CR>
 nmap <leader>b :Buffers<CR>
 
+let $FZF_DEFAULT_COMMAND = "rg --files --hidden --glob '!.git/*'"
 " Search in hidden folders
 " https://github.com/junegunn/fzf.vim/blob/master/plugin/fzf.vim#L63
 command! -bang -nargs=* Rg
-  \ call fzf#vim#grep("rg --hidden --column --line-number --no-heading --color=always --smart-case -- ".fzf#shellescape(<q-args>), fzf#vim#with_preview(), <bang>0)
+  \ call fzf#vim#grep("rg --hidden --glob '!.git/**' --column --line-number --no-heading --color=always --smart-case -- ".fzf#shellescape(<q-args>), fzf#vim#with_preview(), <bang>0)
 
 " Sneak
 nmap <leader>s <Plug>Sneak_s
@@ -152,17 +156,6 @@ let g:EditorConfig_exclude_patterns = ['fugitive://.*']
 " Coc
 
 let g:coc_global_extensions = ['coc-json', 'coc-html', 'coc-css', 'coc-tsserver']
-
-" Use tab for trigger completion with characters ahead and navigate
-" NOTE: There's always complete item selected by default, you may want to enable
-" no select by `"suggest.noselect": true` in your configuration file
-" NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
-" other plugin before putting this into your config
-inoremap <silent><expr> <TAB>
-      \ coc#pum#visible() ? coc#pum#next(1) :
-      \ CheckBackspace() ? "\<Tab>" :
-      \ coc#refresh()
-inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
 
 " Make <CR> to accept selected completion item or notify coc.nvim to format
 " <C-g>u breaks current undo, please make your own choice
