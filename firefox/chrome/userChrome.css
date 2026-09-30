@@ -1,11 +1,22 @@
-.tabbrowser-tab[pending] {
-  background-color: rgba(221, 221, 221, 0.5) !important;
+:root {
+  --border-radius-xsmall: 2px !important;
+  --border-radius-small: 4px !important;
+  --border-radius-medium: 6px !important;
+  --border-radius-large: 8px !important;
+  --border-radius-xlarge: 10px !important;
+}
+
+.tabbrowser-tab[pending] .tab-text {
   color: red !important;
   font-style: italic !important;
+}
+.tabbrowser-tab[pending] {
+  background-color: rgba(221, 221, 221, 0.5) !important;
 }
 .tabbrowser-tab {
   background-color: rgba(221, 221, 221, 1) !important;
 }
+
 #tabbrowser-tabs ~ #alltabs-button {
   visibility: visible !important;
 }
